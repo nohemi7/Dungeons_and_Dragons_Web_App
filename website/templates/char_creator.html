@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block title %}
+    Character Creator
+{% endblock %}
+
+{% block content %}
+    <form method="POST" action="/char_creator">
+        <div class="mb-3">
+            <label for="char-name" class="form-label">Character Name</label>
+            <input type="text" class="form-control" id="char-name" name="char-name" placeholder="Enter a character name">
+        </div>
+        <div class="mb-3">
+            <select class="form-select" name="char-race" id="char-race" aria-label="Select Race">
+                <option selected>Select Race</option>
+                <option value="Dragonborn">Dragonborn</option>
+                <option value="Dwarf">Dwarf</option>
+                <option value="Elf">Elf</option>
+                <option value="Gnome">Gnome</option>
+                <option value="Half-Elf">Half-Elf</option>
+                <option value="Halfling">Halfling</option>
+                <option value="Half-Orc">Half-Orc</option>
+                <option value="Human">Human</option>
+                <option value="Tiefling">Tiefling</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <select class="form-select" name="char-class" id="char-class" aria-label="Select Class">
+                <option selected>Select Class</option>
+                <option value="Barbarian">Barbarian</option>
+                <option value="Bard">Bard</option>
+                <option value="Cleric">Cleric</option>
+                <option value="Druid">Druid</option>
+                <option value="Fighter">Fighter</option>
+                <option value="Monk">Monk</option>
+                <option value="Paladin">Paladin</option>
+                <option value="Ranger">Ranger</option>
+                <option value="Rogue">Rogue</option>
+                <option value="Sorcerer">Sorcerer</option>
+                <option value="Warlock">Warlock</option>
+                <option value="Wizard">Wizard</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <select class="form-select" name="char-background" id="char-background" aria-label="Select a background">
+                <option selected>Select background</option>
+                <option value="Acolyte">Acolyte</option>
+                <option value="Charlatan">Charlatan</option>
+                <option value="Criminal">Criminal</option>
+                <option value="Entertainer">Entertainer</option>
+                <option value="Folk Hero">Folk Hero</option>
+                <option value="Guild Artisan">Guild Artisan</option>
+                <option value="Hermit">Hermit</option>
+                <option value="Noble">Noble</option>
+                <option value="Outlander">Outlander</option>
+                <option value="Sage">Sage</option>
+                <option value="Sailor">Sailor</option>
+                <option value="Soldier">Soldier</option>
+                <option value="Urchin">Urchin</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <select class="form-select" name="char-alignment" id="char-alignment" aria-label="Select a Alignment">
+                <option selected>Select Alignment</option>
+                <option value="Lawful-Good">Lawful Good</option>
+                <option value="Lawful-Neutral">Lawful Neutral</option>
+                <option value="Lawful-Evil">Lawful Evil</option>
+                <option value="Neutral-Good">Neutral Good</option>
+                <option value="True-Neutral">True Neutral</option>
+                <option value="Neutral-Evil">Neutral Evil</option>
+                <option value="Chaotic-Evil">Chaotic-Good</option>
+                <option value="Chaotic-Evil">Chaotic-Neutral</option>
+                <option value="Chaotic-Evil">Chaotic-Evil</option>
+            </select>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+{% endblock %}  

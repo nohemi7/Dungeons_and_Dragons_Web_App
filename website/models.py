@@ -3,9 +3,13 @@ from flask_login import UserMixin
 from sqlalchemy.sql import func
 
 # Define schema
-class Note(db.Model):
+class Character(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(10000))
+    char_name = db.Column(db.String(50))
+    char_race = db.Column(db.String(50))
+    char_class = db.Column(db.String(50))
+    char_background = db.Column(db.String(50))
+    char_alignment = db.Column(db.String(50))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
@@ -15,4 +19,4 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
-    notes = db.relationship('Note')
+    characters = db.relationship('Character')
