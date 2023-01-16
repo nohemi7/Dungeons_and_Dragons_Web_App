@@ -5,4 +5,28 @@
 
 {% block content %}
     <h1>Homepage</h1>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Date Created</th>
+            <th scope="col">Name</th>
+            <th scope="col">race</th>
+            <th scope="col">class</th>
+            <th scope="col">background</th>
+            <th scope="col">alignment</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for character in user.characters %}
+          <tr>
+            <th scope="row">{{ character.date }}</th>
+            <td>{{ character.char_name }}</td>
+            <td>{{ character.char_race }}</td>
+            <td>{{ character.char_class }}</td>
+            <td>{{ character.char_background }}</td>
+            <td>{{ character.char_alignment }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
 {% endblock %}  

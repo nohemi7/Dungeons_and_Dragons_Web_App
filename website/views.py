@@ -63,14 +63,13 @@ char_alignments = [
 @login_required
 def home():
     # TODO: Display "character sheets" with tables
-
+    
     return render_template("home.html", user=current_user)
 
 # Character Creator Route
 @views.route('/char-creator', methods=['GET', 'POST'])
 @login_required
 def char_creator():
-    # TODO: store data from form
     if request.method == 'POST':
         name = request.form.get('char-name')
         race = request.form.get('char-race')
@@ -82,14 +81,14 @@ def char_creator():
         if not name:
             flash("Name field cannot be empty", category='error')
         elif race not in char_races or c_class not in char_classes or background not in char_backgrounds or alignment not in char_alignments:
-            flash("Invalid character input")
+            flash("Invalid character input", category='error')
         else:
             # valid input so we update the database of the user to add the character
             # Then redirect to home
             new_character = Character(char_name=name, char_race=race, char_class=c_class, char_background=background, char_alignment=alignment, user_id=current_user.id)
-            print(new_character)
             db.session.add(new_character)
             db.session.commit()
+            flash("Character created!", category='success')
             return redirect(url_for("views.home"))
     
     return render_template("char_creator.html", user=current_user, char_races=char_races, 
