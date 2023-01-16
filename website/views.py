@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
-
+from .models import Character
+from . import db
 #Set up blueprint for our flask app
 views = Blueprint('views', __name__)
 
@@ -58,15 +59,38 @@ char_alignments = [
 ]
 
 # Homepage route
-@views.route('/')
+@views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    # Display "character sheets"
+    # TODO: Display "character sheets" with tables
+
     return render_template("home.html", user=current_user)
 
 # Character Creator Route
 @views.route('/char-creator', methods=['GET', 'POST'])
 @login_required
 def char_creator():
+    # TODO: store data from form
+    if request.method == 'POST':
+        name = request.form.get('char-name')
+        race = request.form.get('char-race')
+        c_class = request.form.get('char-class')
+        background = request.form.get('char-background')
+        alignment = request.form.get('char-alignment')
+
+        # Validate Entry
+        if not name:
+            flash("Name field cannot be empty", category='error')
+        elif race not in char_races or c_class not in char_classes or background not in char_backgrounds or alignment not in char_alignments:
+            flash("Invalid character input")
+        else:
+            # valid input so we update the database of the user to add the character
+            # Then redirect to home
+            new_character = Character(char_name=name, char_race=race, char_class=c_class, char_background=background, char_alignment=alignment, user_id=current_user.id)
+            print(new_character)
+            db.session.add(new_character)
+            db.session.commit()
+            return redirect(url_for("views.home"))
+    
     return render_template("char_creator.html", user=current_user, char_races=char_races, 
         char_classes=char_classes, char_backgrounds=char_backgrounds, char_alignments=char_alignments)
