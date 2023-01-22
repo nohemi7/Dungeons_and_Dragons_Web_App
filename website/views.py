@@ -1,7 +1,9 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 from flask_login import login_required, current_user
 from .models import Character
 from . import db
+import json
+
 #Set up blueprint for our flask app
 views = Blueprint('views', __name__)
 
@@ -93,3 +95,14 @@ def char_creator():
     
     return render_template("char_creator.html", user=current_user, char_races=char_races, 
         char_classes=char_classes, char_backgrounds=char_backgrounds, char_alignments=char_alignments)
+
+
+@views.route('/delete-character', methods=['POST'])
+def delete_row():
+    id = request.form.get("id")
+    if id:
+        character = Character.query.get(id)
+        db.session.delete(character)
+        db.session.commit()
+
+    return redirect(url_for("views.home"))

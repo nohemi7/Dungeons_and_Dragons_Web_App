@@ -25,6 +25,12 @@
             <td>{{ character.char_class }}</td>
             <td>{{ character.char_background }}</td>
             <td>{{ character.char_alignment }}</td>
+            <td>
+              <form action="/delete-character" method="post">
+                <input name="id" type="hidden" value="{{ character.id }}">
+                <input class="form-control" type="submit" value="Delete-character">
+            </form>
+            </td>
           </tr>
         {% endfor %}
         </tbody>
